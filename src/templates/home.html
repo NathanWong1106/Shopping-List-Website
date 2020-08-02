@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block main %}
+  <div class="jumbotron jumbotron-fluid" style="height:50vh; margin: 0;">
+    <div class="container">
+      <h1 class="display-4">View and Create New Lists</h1>
+      <p class="lead">Here, you can view your existing grocery lists or create entirely new ones!</p>
+      <hr class="my-4">
+      <a class="btn btn-primary btn-lg" href="/lists" role="button">Go to Lists</a>
+    </div>
+  </div>
+  <div class="jumbotron jumbotron-fluid" style="height:50vh; margin: 0;">
+    <div class="container">
+      <h1 class="display-4">View and Create New Recipes</h1>
+      <p class="lead">Here, you can create recipes that can be added instantly to your grocery lists!</p>
+      <hr class="my-4">
+      <a class="btn btn-primary btn-lg" href="/recipes" role="button">Go to Recipes</a>
+    </div>
+  </div>
+{% endblock %}

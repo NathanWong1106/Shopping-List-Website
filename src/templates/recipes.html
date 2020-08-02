@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Recipes
+{% endblock %}
+
+{% block ajaxFlash %}
+    <header id="flash"></header>
+{% endblock %}
+
+<!--Create a div for flashed messages? AJAX calls don't render flashes from flask... :(-->
+
+{% block main %}
+    <div class="container p-5" style="text-align: center;">
+        <h2>Create a Recipe</h2>
+        <br>
+        <div class="input-group mb-3">
+            <input name="name" id="name" type="text" class="form-control" placeholder="New Recipe Name">
+            <input name="description" id="description" type="text" class="form-control" placeholder="Add a Description">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="createButton" disabled>Create</button>
+            </div>
+        </div>
+        <hr>
+        <h2>Your Saved Recipes</h2>
+        <br>
+        <div class="card-columns">
+            {% for recipe in recipes %}
+                <div class="card border-dark mb-3" style="width: 18rem">
+                    <div class="card-body text-dark">
+                        <h5 class="card-title">{{ recipe[1] }}</h5>
+                        <p class="card-text">{{ recipe[3] }}</p>
+                    </div>
+                    <div class="card-footer" style="text-align: center;">
+                            <a href="/recipes/edit/{{recipe[0]}}"><button value="{{recipe[0]}}" type="button" class="btn btn-secondary editButton">Edit</button></a>
+                            <button value="{{recipe[0]}}" type="button" class="btn btn-secondary deleteButton">Delete</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% if recipes | length == 0 %}
+                <h6 class='text-muted'>Looks like you don't have any recipes at the moment. :(</h4>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    If you don't see your recent changes, try reloading the page
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{{ url_for('static', filename='recipes.js') }}"></script>
+{% endblock %}

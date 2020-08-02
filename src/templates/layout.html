@@ -25,15 +25,15 @@
     <body>
 
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">QuickList</a>
+            <a class="navbar-brand" href="/">QuickList</a>
             <button class="navbar-toggler d-block d-md-none" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbar">
                 <div class="navbar-nav .col-auto .mr-auto">
                     {% if session.user_id %}
-                    <a class="nav-item nav-link" href="#">Recipes</a>
-                    <a class="nav-item nav-link" href="#">List</a>
+                    <a class="nav-item nav-link" href="/recipes">Recipes</a>
+                    <a class="nav-item nav-link" href="/lists">List</a>
                 {% else %}
                     <a class="nav-item nav-link disabled" tabindex="-1" aria-disabled="true">Recipes</a>
                     <a class="nav-item nav-link disabled" tabindex="-1" aria-disabled="true">List</a>
@@ -41,8 +41,8 @@
                 </div>
                 <div class="navbar-nav ml-md-auto">
                     {% if session.user_id %}
-                        <a class="nav-item nav-link" href="#">Home</a>
-                        <a class="nav-item nav-link" href="#">Logout</a>
+                        <a class="nav-item nav-link" href="/">Home</a>
+                        <a class="nav-item nav-link" href="/logout">Logout</a>
                     {% else %}
                         <a class="nav-item nav-link disabled" tabindex="-1" aria-disabled="true">Home</a>
                         <a class="nav-item nav-link" href="/login">Login</a>
@@ -54,13 +54,19 @@
 
         {% if get_flashed_messages() %}
         <header>
-            <div class="alert alert-primary border text-center" role="alert">
+            <div class="alert alert-primary alert-dismissible fade show msg border text-center rounded-0 " role="alert" style="margin:0;">
                 {{ get_flashed_messages() | join(" ") }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         </header>
         {% endif %}
 
-        <main class="container p-5">
+        {% block ajaxFlash %}
+        {% endblock %}
+
+        <main>
             {% block main %}
             {% endblock %}
         </main>
@@ -71,5 +77,7 @@
         </footer>
 
     </body>
+    {% block scripts %}
+    {% endblock %}
      
 </html>

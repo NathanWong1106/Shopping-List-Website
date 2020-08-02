@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit Recipe
+{% endblock %}
+
+{% block ajaxFlash %}
+    <header id="flash"></header>
+{% endblock %}
+
+{% block main %}
+    <div class="container p-5" style="text-align: center;">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="recipeName" style="background-color: gray; color: whitesmoke">Name/Title</label>
+            </div>
+            <input name="recipeName" value="{{recipe[0][1]}}" placeholder="Recipe Name" class="form-control" type="text" id="recipeName" style="text-align: center;">
+            <div class="input-group-append">
+                <button class="btn btn-primary" id="recipeNameButton" type="button" disabled>Save Changes</button>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="recipeDescription" style="background-color: gray; color: whitesmoke">Description</label>
+            </div>
+            <input name="recipeDescription" value="{{recipe[0][3]}}" placeholder="Recipe Description" class="form-control" type="text" id="recipeDescription" style="text-align: center;">
+            <div class="input-group-append">
+                <button class="btn btn-primary" id="recipeDescriptionButton" type="button" disabled>Save Changes</button>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <input name="name" id="name" type="text" class="form-control" placeholder="Ingredient Name">
+            <input name="quantity" id="quantity" type="text" class="form-control" placeholder="Quantity">
+            <div class="input-group-append">
+                <button class="btn btn-primary" value='{{recipe[0][0]}}' type="button" id="addButton" disabled>Add Ingredient</button>
+            </div>
+        </div>
+        <hr>
+        <br>
+        <h2>Ingredients List</h2>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Ingredients</th>
+                    <th scope="col">Quantity</th>
+                    <th scopr="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for ingredient in ingredients %}
+                <tr>
+                    <td>{{ingredient[1]}}</td>
+                    <td>{{ingredient[4]}}</td>
+                    <td>
+                        <button class="btn btn-danger removeButton" type="button" value="{{ingredient[3]}}">Remove</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{{ url_for('static', filename='editRecipes.js') }}"></script>
+{% endblock %}
