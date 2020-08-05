@@ -30,7 +30,7 @@
         </div>
         <div class="input-group mb-3">
             <input name="name" id="name" type="text" class="form-control" placeholder="Ingredient Name">
-            <input name="quantity" id="quantity" type="text" class="form-control" placeholder="Quantity">
+            <input name="quantity" id="quantity" type="number" min="1" class="form-control" placeholder="Quantity" onkeypress="return isInteger(event)">
             <div class="input-group-append">
                 <button class="btn btn-primary" value='{{recipe[0][0]}}' type="button" id="addButton" disabled>Add Ingredient</button>
             </div>
@@ -44,14 +44,21 @@
                 <tr>
                     <th scope="col">Ingredients</th>
                     <th scope="col">Quantity</th>
-                    <th scopr="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
             {% for ingredient in ingredients %}
                 <tr>
                     <td>{{ingredient[1]}}</td>
-                    <td>{{ingredient[4]}}</td>
+                    <td>
+                        <span class="input-group">
+                            <input id=num{{ingredient[0]}} class="form-control ingredientQuantity" type="number" min="1" step="1" onkeypress="return isInteger(event)" value={{ingredient[4]}} style="text-align: center;">
+                            <span class="input-group-append">
+                                <button id={{ingredient[0]}} class="btn btn-info changeQuantityButton" type="button" disabled>Update</button>
+                            </span>
+                        </span>
+                    </td>
                     <td>
                         <button class="btn btn-danger removeButton" type="button" value="{{ingredient[3]}}">Remove</button>
                     </td>
@@ -64,4 +71,5 @@
 
 {% block scripts %}
     <script type="text/javascript" src="{{ url_for('static', filename='editRecipes.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='forceInteger.js') }}"></script>
 {% endblock %}

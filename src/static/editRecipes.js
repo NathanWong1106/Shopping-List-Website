@@ -1,7 +1,7 @@
 const recipeID = $('#addButton').val()
 
-$('#quantity').keyup(function(){
-    if(Number.isInteger(+$(this).val()) && $(this).val() != '' && $('#name').val() != '')
+$('#quantity').change(function(){
+    if(Number.isInteger(+$(this).val()) && +$(this).val() > 0  && $(this).val() != '' && $('#name').val() != '')
     {
         $('#addButton').prop('disabled', false)
     }else{
@@ -10,7 +10,7 @@ $('#quantity').keyup(function(){
 })
 
 $('#name').keyup(function(){
-    if(Number.isInteger(+$('#quantity').val()) && $('#quantity').val() != '' && $(this).val() != '')
+    if(Number.isInteger(+$('#quantity').val()) && +$('#quantity').val() > 0  && $('#quantity').val() != '' && $(this).val() != '')
     {
         $('#addButton').prop('disabled', false)
     }else{
@@ -81,6 +81,22 @@ $('#recipeDescription').keyup(function(){
     }else{
         $('#recipeDescriptionButton').prop('disabled', true)
     }
+})
+
+$('.changeQuantityButton').click(function(){
+    $.ajax({
+        type: 'POST',
+        url: '/recipes/edit/quantity',
+        async: true,
+        data: {recipeID: recipeID, ingredientID: $(this).attr('id'), quantity: $(`#num${$(this).attr('id')}`).val()},
+        success: function(res){
+            $('#flash').html(flashMessage(res))
+        }
+    })
+})
+
+$('.ingredientQuantity').change(function(){
+    $(`#${$(this).attr('id').substr(3)}`).prop('disabled', false)
 })
 
 $('.removeButton').click(function(){

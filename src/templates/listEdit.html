@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit List
+{% endblock %}
+
+{% block ajaxFlash %}
+    <header id="flash"></header>
+{% endblock %}
+
+{% block main %}
+    <div class="container p-5" style="text-align: center;">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="listName" style="background-color: gray; color: whitesmoke">Name/Title</label>
+            </div>
+            <input name="listName" value="{{list[0][2]}}" placeholder="List Name" class="form-control" type="text" id="listName" style="text-align: center;">
+            <div class="input-group-append">
+                <button class="btn btn-primary" id="listNameButton" type="button" disabled>Save Changes</button>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <input name="name" id="name" type="text" class="form-control" placeholder="Ingredient Name">
+            <input name="quantity" id="quantity" type="number" min="1" class="form-control" placeholder="Quantity" onkeypress="return isInteger(event)">
+            <div class="input-group-append">
+                <!--The add button also stores the list ID for use in jquery/ajax-->
+                <button class="btn btn-primary" value='{{list[0][0]}}' type="button" id="addButton" disabled>Add Ingredient</button>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="recipeName" style="background-color: gray; color: whitesmoke">Recipe Name</label>
+            </div>
+            <select class="custom-select" id="recipeName">
+                {% for recipe in recipes %}
+                    <option value={{recipe[1]}}>{{ recipe[1] }}</option>
+                {% endfor %}
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-primary" id="recipeNameButton" type="button">Add Recipe</button>
+            </div>
+        </div>
+        <hr>
+        <br>
+        <h2>Grocery List</h2>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Ingredients</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for ingredient in ingredients %}
+            <tr>
+                <td>{{ingredient[1]}}</td>
+                <td>
+                    <span class="input-group">
+                        <input id=num{{ingredient[0]}} class="form-control ingredientQuantity" type="number" min="1" step="1" onkeypress="return isInteger(event)" value={{ingredient[4]}} style="text-align: center;">
+                        <span class="input-group-append">
+                            <button id={{ingredient[0]}} class="btn btn-info changeQuantityButton" type="button" disabled>Update</button>
+                        </span>
+                    </span>
+                </td>
+                <td>
+                    <button class="btn btn-danger removeButton" type="button" value="{{ingredient[3]}}">Remove</button>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{{ url_for('static', filename='editLists.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='forceInteger.js') }}"></script>
+{% endblock %}

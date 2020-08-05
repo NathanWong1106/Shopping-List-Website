@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Your List
+{% endblock %}
+
+{% block ajaxFlash %}
+    <header id="flash"></header>
+{% endblock %}
+
+{% block main %}
+    <div class="container p-5" style="text-align: center;">
+        <h2>{{listName}}</h2>
+        <hr>
+        <br>
+        <div class="list-group">
+            {% for ingredient in ingredients %}
+                <a href="/lists/{{listID}}/{{ingredient[0]}}/{{ingredient[5]}}" class="list-group-item list-group-item-action
+                 {% if ingredient[5] != 0 %} list-group-item-secondary {% endif %}" type="button">
+                    <span class="d-flex justify-content-between align-items-center">
+                        {% if ingredient[5] == 0 %}
+                            {{ingredient[1]}}
+                            <span class="badge badge-primary badge-pill">
+                                {{ingredient[4]}}
+                            </span>
+                        {% else %}
+                            <s>{{ingredient[1]}}</s>
+                            <span class="badge badge-primary badge-pill">
+                                {{ingredient[4]}}
+                            </span>
+                        {% endif %}
+                    </span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    Click on each ingredient to cross them off your list
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Lists
+{% endblock %}
+
+{% block ajaxFlash %}
+    <header id="flash"></header>
+{% endblock %}
+
+{% block main %}
+    <div class="container p-5" style="text-align: center;">
+        <h2>Create a List</h2>
+        <br>
+        <div class="input-group mb-3">
+            <input name="name" id="name" type="text" class="form-control" placeholder="New List Name">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="createButton" disabled>Create</button>
+            </div>
+        </div>
+        <hr>
+        <h2>Your Saved Lists</h2>
+        <br>
+        <div class="card-columns">
+            {% for list in lists %}
+                <div class="card border-dark mb-3" style="width: 18rem">
+                    <div class="card-body text-dark">
+                        <a href="/lists/{{list[0]}}"><h5 class="card-title">{{ list[2] }}</h5></a>
+                        <p class="card-text">Created: {{ list[3] }}</p>
+                    </div>
+                    <div class="card-footer" style="text-align: center;">
+                            <a href="/lists/edit/{{list[0]}}"><button value="{{list[0]}}" type="button" class="btn btn-outline-primary editButton">Edit</button></a>
+                            <button value="{{list[0]}}" type="button" class="btn btn-outline-danger deleteButton">Delete</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% if lists | length == 0 %}
+                <h6 class='text-muted'>Looks like you don't have any lists at the moment. :(</h6>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    If you don't see your recent changes, try reloading the page
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{{ url_for('static', filename='lists.js') }}"></script>
+{% endblock %}

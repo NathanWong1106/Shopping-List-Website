@@ -8,8 +8,6 @@
     <header id="flash"></header>
 {% endblock %}
 
-<!--Create a div for flashed messages? AJAX calls don't render flashes from flask... :(-->
-
 {% block main %}
     <div class="container p-5" style="text-align: center;">
         <h2>Create a Recipe</h2>
@@ -32,8 +30,8 @@
                         <p class="card-text">{{ recipe[3] }}</p>
                     </div>
                     <div class="card-footer" style="text-align: center;">
-                            <a href="/recipes/edit/{{recipe[0]}}"><button value="{{recipe[0]}}" type="button" class="btn btn-secondary editButton">Edit</button></a>
-                            <button value="{{recipe[0]}}" type="button" class="btn btn-secondary deleteButton">Delete</button>
+                            <a href="/recipes/edit/{{recipe[0]}}"><button value="{{recipe[0]}}" type="button" class="btn btn-outline-primary editButton">Edit</button></a>
+                            <button value="{{recipe[0]}}" type="button" class="btn btn-outline-danger deleteButton">Delete</button>
                     </div>
                 </div>
             {% endfor %}
@@ -45,7 +43,7 @@
 {% endblock %}
 
 {% block footer %}
-    If you don't see your recent changes, try reloading the page
+    If you don't see your changes, try reloading the page
 {% endblock %}
 
 {% block scripts %}
