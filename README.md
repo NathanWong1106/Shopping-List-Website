@@ -6,14 +6,14 @@ This website allows users to create recipes and import the recipe ingredients to
 User data is stored in an SQLite database and passwords are hashed for security.
 
 Languages:
-Python
-JavaScript
-HTML
+Python,
+JavaScript,
+HTML,
 CSS
 
 Frameworks/Technologies:
-Flask/Jinja
-JQuery
-Ajax
+Flask/Jinja,
+JQuery,
+Ajax,
 SQLite
 
