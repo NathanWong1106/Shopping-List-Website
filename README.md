@@ -12,7 +12,7 @@ HTML
 CSS
 
 Frameworks/Technologies:
-Jinja
+Flask/Jinja
 JQuery
 Ajax
 SQLite
